@@ -1,5 +1,5 @@
-# <p style="text-align: center;"> TDoC-Synapse</p>
-<p style="text-align: center;"> API tester using Python</p>
+# <p style="text-align: center;"> TDoC-Synapse </p>
+<p style="text-align: center;"> API tester using Python </p>
 
 ***
 ### About the project
