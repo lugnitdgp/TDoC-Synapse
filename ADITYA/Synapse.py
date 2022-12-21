@@ -1,9 +1,14 @@
 import tkinter
 from tkinter import *
 from tkinter import ttk
-import tkinter as tk
+import tkinter as Tk
+from backend import *
+from bs4 import BeautifulSoup as bs
+from tkinter import messagebox
+
 
 frame = Tk()
+# gui logic
 frame.title("SYNAPSE")
 frame.geometry("1260x820")
 frame.config(bg='#fff')
@@ -31,11 +36,22 @@ def dropdown():
     print(newvar)
 
 def saveinput():
-    var = inputtxt.get(1.0, "end-1c")
-    param = tab1.get(1.0, "end-1c")
-    print(var)
-    print(param)
-
+    url = inputtxt.get(1.0, "end-1c")
+    auth = tab2.get(1.0, "end-1c")
+    head = tab3.get(1.0, "end-1c")
+    drop = dropdown()
+    code, text, header = request(drop, url, auth, head)
+    soup = bs(text, 'html.parser')
+    prettyHTML = soup.prettify()
+    lbl1.delete("1.0", "end")
+    lbl1.insert(Tk.END, prettyHTML)
+    lbl2.set_html(text)
+    status.config(text="Status Code :" + str(code))
+    
+def saveproject():
+    link = inputtxt.get(1.0, "end-1c")
+    savewebsite(url=link, project_folder="./saved_folder/")
+    messagebox.showinfo("Success!!", "Project folder saved")
 
 option = [
     "GET",
@@ -72,12 +88,15 @@ tabControl.add(tab3, text='Headers')
 tabControl.add(tab4, text='JSON')
 tabControl.pack(fill="both", padx=40, pady=50)
 
-responseframe = Frame(frame, borderwidth=0, bg="#fff")
-responseframe.pack()
-sframe = Frame(responseframe, padx=3, pady=3, bg="#fff", highlightbackground="black", highlightthickness=10)
-sframe.pack()
-statusframe = Frame(sframe, bg="#fff")
-statusframe.pack()
+# Button creation
+sendButton = Button(fr2, text="Send", padx=18, pady=15, bg="blue", fg="black", command=saveinput)
+sendButton.grid(row=0, column=2)
+saveButton = Button(fr2, text="Save", padx=18, pady=15, bg="blue", fg="black")
+saveButton.grid(row=0, column=4)
+tabControl = ttk.Notebook(statusframe)
+statusframe.grid(row=4, column=4)
+
+
 
 
 tabControl= ttk.Notebook(responseframe, height = 700, width = 1200)
@@ -92,12 +111,17 @@ tabControl.add(tab_3, text='Headers')
 
 tabControl.pack(fill = "both")
 
-status = Label(statusframe, text= "S")
+status = Label(statusframe, text= "Status Code: 000", height=1, width=16)
+status.pack()
+
+# Label Creation
+lbl1 = Label(tab_1, text="raw", height=1150, width=100, padx=50, pady=50, bg="#fff", fg="black", font="Helvetica")
+lbl1.pack()
+lbl2 = Label(tab_2, html="Preview", height=1150, width=1300, padx=50, pady=50, bg="#fff", fg="black", font="Helvetica")
+lbl1.pack(anchor = "center")
+lbl1 = Label(tab_1, text="raw", height=1150, width=1300, padx=50, pady=50, bg="#fff", fg="black", font="Helvetica")
+lbl1.pack()
 
 
 
 frame.mainloop()
-
-
-
-
