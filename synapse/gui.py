@@ -38,7 +38,7 @@ statusframe.pack()
 # output.pack(padx=200,pady =40)
 
 #inputbox
-myinput=Text(topframe, height=1.5,width=80,)
+myinput=Text(topframe, height=1.5,width=80)
 myinput.grid(row=0,column=1,padx=35,pady=50)
 
 
