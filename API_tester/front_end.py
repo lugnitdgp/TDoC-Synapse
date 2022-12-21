@@ -8,7 +8,7 @@ from tkhtmlview import HTMLLabel
 from tkinter import messagebox
 
 gui = Tk()
-gui.title("API TESTER")
+gui.title("TASK")
 gui.geometry("1200x520")
 gui.config(bg= "lemonchiffon", highlightcolor="red", highlightthickness=10, borderwidth=4)
 
@@ -59,8 +59,9 @@ btn1.grid(row=0, column=2)
 btn2 = Button(second_frame, text = "Save", command=saveproject, padx=18, pady=15, bg="#1338be", fg="#fff")
 btn2.grid(row=0, column=4)
 
-input = Text(second_frame, height=2, width=70, font=('Times New Roman',15,'normal'), bg = "black", fg = "yellow", insertbackground="yellow")
+input = Text(second_frame, height=1, pady=20, padx=20, width=80, font=('Times New Roman',15,'normal'), bg = "black", fg = "yellow", insertbackground="yellow")
 input.grid(row=0, column=1, padx=45)
+
 
 options= {
     "GET",
